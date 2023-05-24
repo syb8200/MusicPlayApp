@@ -40,5 +40,5 @@
         android:padding="16dp"
         android:src="@drawable/ic_baseline_stop_24"
         tools:ignore="MissingConstraints" />
-    
+
 </androidx.constraintlayout.widget.ConstraintLayout>

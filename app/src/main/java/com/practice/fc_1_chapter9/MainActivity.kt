@@ -1,13 +1,12 @@
 package com.practice.fc_1_chapter9
 
-import android.media.MediaPlayer
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.practice.fc_1_chapter9.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding : ActivityMainBinding
-    private var mediaPlayer : MediaPlayer ?= null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,23 +20,20 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun mediaPlayerPlay() {
-        if(mediaPlayer == null) {
-            mediaPlayer = MediaPlayer.create(this, R.raw.winner_winner_funky_chicken_dinner).apply {
-                isLooping = true
-            }
-        }
-        mediaPlayer?.start()
+        val intent = Intent(this, MediaPlayerService::class.java)
+            .apply { action = MEDIA_PLAYER_PLAY }
+        startService(intent)
     }
 
     private fun mediaPlayerPause() {
-        mediaPlayer?.pause()
+        val intent = Intent(this, MediaPlayerService::class.java)
+            .apply { action = MEDIA_PLAYER_PAUSE }
+        startService(intent)
     }
 
     private fun mediaPlayerStop() {
-        mediaPlayer?.stop()
-
-        // 더이상 사용X -> 메모리에서 해제
-        mediaPlayer?.release()
-        mediaPlayer = null
+        val intent = Intent(this, MediaPlayerService::class.java)
+            .apply { action = MEDIA_PLAYER_STOP }
+        startService(intent)
     }
 }
